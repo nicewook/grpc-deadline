@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package cntchar;
+option go_package = "cntcharpb";
+
+message cntCharReq {
+  string strInput = 1;
+}
+
+message cntCharRes {
+  string cntResult = 1;
+}
+
+service cntCharService {
+  rpc cntChar (cntCharReq) returns (cntCharRes) {}
+}
+
+
+
