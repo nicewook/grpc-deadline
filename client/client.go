@@ -9,6 +9,12 @@ import (
 	"google.golang.org/grpc"
 )
 
+const (
+	in1 = "abababab"
+	in2 = "abcabcabcabc"
+	in3 = "abbcccddddeeeee"
+)
+
 func main() {
 	fmt.Println("Count Char gRPC client starts!")
 	cc, dialErr := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())
@@ -17,7 +23,7 @@ func main() {
 	}
 
 	c := cntcharpb.NewCntCharServiceClient(cc)
-	res, err := c.CntChar(context.Background(), &cntcharpb.CntCharReq{})
+	res, err := c.CntChar(context.Background(), &cntcharpb.CntCharReq{StrInput: in1})
 	if err != nil {
 		log.Printf("err from the gRPC server: %v\n", err)
 	}

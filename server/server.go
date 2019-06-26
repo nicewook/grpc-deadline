@@ -14,7 +14,15 @@ type server struct{}
 
 func (*server) CntChar(cnt context.Context, req *cntcharpb.CntCharReq) (*cntcharpb.CntCharRes, error) {
 	fmt.Println("gRPC server received RPC req")
-	return &cntcharpb.CntCharRes{}, nil
+
+	cntCharMap := make(map[string]int)
+	msg := req.GetStrInput()
+	for _, char := range msg {
+		cntCharMap[string(char)]++
+	}
+
+	cntResult := fmt.Sprintf("Input: %s\nCount char result:\n%v\n", msg, cntCharMap)
+	return &cntcharpb.CntCharRes{CntResult: cntResult}, nil
 }
 
 func main() {
